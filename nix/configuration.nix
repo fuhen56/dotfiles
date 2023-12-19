@@ -44,21 +44,31 @@
 
   # Enable Storage Optimisation:
   nix.settings.auto-optimise-store = true;
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.defaultSession = "plasmawayland";
   services.xserver.desktopManager.plasma5.enable = true;
 
   # Configure keymap in X11
-  services.xserver.xkbDir = "/home/james/BigBagKbdTrixXKB/xkb-data_xmod/xkb/";
+  # services.xserver.xkbDir = "/home/james/BigBagKbdTrixXKB/xkb-data_xmod/xkb/";
 
   # Configure console keymap
   console.keyMap = "uk";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  # Other stuff for printing
+  services.printing.drivers = [
+    ## Commented the following, because I still haven't figured out how to download, unzip and send the driver to the CUPS dir
+    ##(pkgs.callPackage "/home/james/Nix printing config/hp-driver - debug.nix" {})
+    ##(pkgs.callPackage pkgs.hplip)
+    # This copies the driver from my ~/ → $CUPS/model/
+    (pkgs.writeTextDir "share/cups/model/HP_Laser_10x_Series.ppd" (builtins.readFile /home/james/HP_Laser_10x_Series.ppd))
+    ];
+
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -101,25 +111,63 @@
   # Declarative Home Manager:
   home-manager
   # Shell and utilities:
-  zsh
-  zsh-powerlevel10k
+  #zsh-powerlevel10k
   zoxide
   # CLI:
   git
   wget
+  #	Archiving tools
+	unar
+  peazip
+  # 	ls modern alternative
+  	eza
+  # 	cat modern alternative
+  	bat
   rclone
   btop
   efibootmgr
+  # Multi-ISO usb flashing
+    ventoy
   lm_sensors
   tmux
   nodejs
+  woeusb
+  youtube-tui
+  # Desk utilisation
+  du-dust
+  gdu
+  ncdu
+  # List of desks
+  duf
+  # find alternative
+  fd
+  # sed alternative
+  sd
+  # something for browsing tree directories. Must know if it's > eza -T
+  broot
+  # Man pages summaries
+  tldr 
+  # History browsing
+  mcfly
+  # fuzzy finder
+  fzf
   # Terminal Emulators:
   alacritty
   # Editors:
   neovim
   helix
+  # LSPs:
+	#lua-language-server
+	#rust-language-server
+	#mark
+  # Knowledge system software:
+  # Obsidian Removed for electron non-free errors
+  # ~~obsidian~~
   # Clipbaord Provider for Neovim
   wl-clipboard
+  # Photo editors:
+  # - Kde native program
+  krita
   # Media-downloder/sharer:
   # torrenting
   qbittorrent
@@ -130,25 +178,46 @@
   mpv
   # Communication:
   telegram-desktop
+  signal-desktop
   # Password Manager:
   keepassxc
   # Screenshot program:
   flameshot
+  # Some stuff for Flameshot to work Wayland
+  xdg-desktop-portal
+  xdg-desktop-portal-kde
   # Office suite:
   libreoffice
   # Ebook Library
   calibre
+  # Phone integration
   # Keyboard customizing
   # Programming languages:
   rustc
   cargo #for rust
   zig
   # RSS
-
+  # Partioning software
+  partition-manager # Kde stuff
+  gparted # Gnome stuff
+  # ntfs support
+  ntfs3g
+  # HP printing support
+  hplip
   ];
+
+  # It's taken from the wiki, and it doesn't work for some reason. The old method of using services.xserver.desktopManager.plasma5.excludePackages does work
+  environment.plasma5.excludePackages = with pkgs.libsForQt5; 
+  [
+  spectacle
+  elisa
+  ];	
 
   # Use Neovim as the default editor for the CLI environment
   programs.neovim.defaultEditor = true;
+  # Enable KDE Connect for Phone-Computer connection
+  programs.kdeconnect.enable = true;
+  programs.zsh.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
