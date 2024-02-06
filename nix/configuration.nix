@@ -59,16 +59,14 @@
   console.keyMap = "uk";
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
-  # Other stuff for printing
-  services.printing.drivers = [
-    ## Commented the following, because I still haven't figured out how to download, unzip and send the driver to the CUPS dir
-    ##(pkgs.callPackage "/home/james/Nix printing config/hp-driver - debug.nix" {})
-    ##(pkgs.callPackage pkgs.hplip)
-    # This copies the driver from my ~/ → $CUPS/model/
-    (pkgs.writeTextDir "share/cups/model/HP_Laser_10x_Series.ppd" (builtins.readFile /home/james/HP_Laser_10x_Series.ppd))
+  services.printing = {
+  enable = true;
+  drivers = with pkgs; [ hplipWithPlugin
+  # This doesn't work, sadly:( pkgs.writeTextDir "share/cups/model/HP_Laser_10x_Series.ppd" (builtins.readFile /home/james/HP_Laser_10x_Series.ppd ) )
     ];
 
+
+  };
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -114,25 +112,28 @@
   #zsh-powerlevel10k
   zoxide
   # CLI:
+  gpg-tui
   git
   wget
   #	Archiving tools
 	unar
-  peazip
+	unzip
   # 	ls modern alternative
   	eza
   # 	cat modern alternative
   	bat
   rclone
   btop
-  efibootmgr
+  # used it to clean up my boot menu: efibootmgr
   # Multi-ISO usb flashing
     ventoy
   lm_sensors
   tmux
-  nodejs
+  etcher
   woeusb
   youtube-tui
+  # Cross-distro application runner
+  distrobox
   # Desk utilisation
   du-dust
   gdu
@@ -146,7 +147,7 @@
   # something for browsing tree directories. Must know if it's > eza -T
   broot
   # Man pages summaries
-  tldr 
+  tldr
   # History browsing
   mcfly
   # fuzzy finder
@@ -154,15 +155,17 @@
   # Terminal Emulators:
   alacritty
   # Editors:
-  neovim
   helix
+  vscode
   # LSPs:
-	#lua-language-server
+	lua-language-server
+	vscode-langservers-extracted
+	javascript-typescript-langserver
 	#rust-language-server
 	#mark
   # Knowledge system software:
   # Obsidian Removed for electron non-free errors
-  # ~~obsidian~~
+  obsidian
   # Clipbaord Provider for Neovim
   wl-clipboard
   # Photo editors:
@@ -176,9 +179,11 @@
   yt-dlp
   # Media player
   mpv
+  ffmpeg
+  # Video editing
+  shotcut
   # Communication:
   telegram-desktop
-  signal-desktop
   # Password Manager:
   keepassxc
   # Screenshot program:
@@ -193,9 +198,12 @@
   # Phone integration
   # Keyboard customizing
   # Programming languages:
-  rustc
-  cargo #for rust
-  zig
+    typescript
+	  rustc
+	  cargo #for rust
+	  zig
+  # JavaScript runtime and tools
+  nodejs
   # RSS
   # Partioning software
   partition-manager # Kde stuff
@@ -204,6 +212,8 @@
   ntfs3g
   # HP printing support
   hplip
+  # Linux unified blabla
+  samsung-unified-linux-driver_1_00_37
   ];
 
   # It's taken from the wiki, and it doesn't work for some reason. The old method of using services.xserver.desktopManager.plasma5.excludePackages does work
@@ -213,8 +223,12 @@
   elisa
   ];	
 
-  # Use Neovim as the default editor for the CLI environment
-  programs.neovim.defaultEditor = true;
+# Configuring an exception for Electron so I can get an update. This is a bad idea for long term, but it's been months since my last update.
+
+nixpkgs.config.permittedInsecurePackages = [
+      "electron-19.1.9"
+];
+
   # Enable KDE Connect for Phone-Computer connection
   programs.kdeconnect.enable = true;
   programs.zsh.enable = true;
