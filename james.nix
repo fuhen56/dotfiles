@@ -18,6 +18,25 @@
       efi.canTouchEfiVariables = true;
     };
 
+    
+    hardware = {
+      firmware = with pkgs; [
+        rtl8761b-firmware
+      ];
+
+      # Enable bluetooth:
+      bluetooth = {
+        enable = true;
+        powerOnBoot = true; # Adds to the "boot sequence". Elias.
+        settings = {
+          General = {
+            Experimental = true; # Battery life.
+            EnableLEFeatures = true; # Bluetooth Low-Energy.
+          };
+        };
+      };
+    };
+    
     networking.hostName = "nixos"; # Define your hostname.
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
