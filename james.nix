@@ -124,7 +124,8 @@
           extraGroups = ["networkmanager" "wheel"];
           packages = with pkgs; [
             firefox
-            #easyeffects
+            firefox-devedition-bin
+            easyeffects
             # thunderbird
 
             # Programming languages:

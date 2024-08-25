@@ -23,7 +23,7 @@
       james = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./configuration.nix
+          ./james.nix
           # nixvim.nixosModule
           # nix-doom.nixosModule
         ];
