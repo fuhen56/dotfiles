@@ -18,7 +18,6 @@
       efi.canTouchEfiVariables = true;
     };
 
-    
     hardware = {
       firmware = with pkgs; [
         rtl8761b-firmware
@@ -36,7 +35,7 @@
         };
       };
     };
-    
+
     networking.hostName = "nixos"; # Define your hostname.
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -80,6 +79,14 @@
         enable = true;
       };
       displayManager.defaultSession = "plasmawayland";
+
+      printing = {
+        enable = true;
+        # drivers = with pkgs; [
+        # hplipWithPlugin
+        # This doesn't work, sadly:( pkgs.writeTextDir "share/cups/model/HP_Laser_10x_Series.ppd" (builtins.readFile /home/james/HP_Laser_10x_Series.ppd ) )
+        # ];
+      };
     };
 
     # Configure keymap in X11
@@ -89,16 +96,7 @@
     # console.keyMap = "uk";
 
     # Enable CUPS to print documents.
-    services.printing = {
-      enable = true;
-      drivers = with pkgs; [
-        hplipWithPlugin
-        # This doesn't work, sadly:( pkgs.writeTextDir "share/cups/model/HP_Laser_10x_Series.ppd" (builtins.readFile /home/james/HP_Laser_10x_Series.ppd ) )
-      ];
-    };
-
     # Enable sound with pipewire.
-    sound.enable = true;
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
