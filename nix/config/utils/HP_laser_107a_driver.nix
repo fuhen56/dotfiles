@@ -16,7 +16,7 @@ in
 
     installPhase = ''
       mkdir -p $out/share/cups/HP/
-      tar -xzf $src --wildcards "*HP_Laser_10x_Series*" --strip-components=4 -C $out/share/cups/HP-addition/${model}
+      tar -xzf $src --wildcards "*HP_Laser_10x_Series*" --strip-components=4 -C $out/share/cups/HP/${model}
     '';
 
     meta = {
