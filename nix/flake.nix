@@ -23,8 +23,8 @@
       james = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./james.nix
-          ./mobile-flashing.nix
+          ./config/james.nix
+          ./config/mobile-flashing.nix
           # nixvim.nixosModule
           # nix-doom.nixosModule
         ];
