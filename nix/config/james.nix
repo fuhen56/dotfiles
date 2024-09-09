@@ -139,6 +139,7 @@
             vscode-langservers-extracted
             javascript-typescript-langserver
             nixd
+            alejadnra
             rust-analyzer
             marksman
             neofetch
