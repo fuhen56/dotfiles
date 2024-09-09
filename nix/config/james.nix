@@ -18,7 +18,6 @@
       efi.canTouchEfiVariables = true;
     };
 
-    
     hardware = {
       firmware = with pkgs; [
         rtl8761b-firmware
@@ -36,7 +35,7 @@
         };
       };
     };
-    
+
     networking.hostName = "nixos"; # Define your hostname.
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -97,9 +96,8 @@
       ];
     };
 
-    # Enable sound with pipewire.
-    sound.enable = true;
     security.rtkit.enable = true;
+    # Enable sound with pipewire.
     services.pipewire = {
       enable = true;
       alsa.enable = true;
