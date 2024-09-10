@@ -25,6 +25,7 @@
         modules = [
           ./config/james.nix
           ./config/mobile-flashing.nix
+          ./config/utils/printing.nix
           # nixvim.nixosModule
           # nix-doom.nixosModule
         ];
