@@ -115,22 +115,21 @@
             firefox
             firefox-devedition-bin
             easyeffects
-            # thunderbird
-
             # Programming languages:
-            # Web
-            typescript
-            # Low level
-            rustc
-            cargo #for rust
-            gcc
-            clang
-            zig
+              # Web
+              typescript
+              # Low level
+               #for rust
+                rustc cargo 
+              gcc
+              clang
+              zig
             # Scripting
-            python313
-            python311Packages.ipython
-            lua
-            luajit
+              python313
+              python311Packages.ipython
+
+              lua
+              luajit
             # JavaScript runtime and tools
             nodejs
             create-react-app
@@ -142,7 +141,8 @@
             alejandra
             rust-analyzer
             marksman
-            neofetch
+            # CLI Accounting
+            hledger
           ];
         };
         temp = {
@@ -165,6 +165,8 @@
     # $ nix search wget
     environment.systemPackages = with pkgs; [
       # Shell and utilities:
+      nushell
+
       # zsh-powerlevel10k
       zoxide
       # CLI:
@@ -196,7 +198,9 @@
       # Multi-ISO usb flashing
       # ventoy
       lm_sensors
+      # Terminal session manager
       tmux
+      zellij
       # youtube-tui
       # Cross-distro application runner
       # distrobox
