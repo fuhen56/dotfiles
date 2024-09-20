@@ -116,20 +116,21 @@
             firefox-devedition-bin
             easyeffects
             # Programming languages:
-              # Web
-              typescript
-              # Low level
-               #for rust
-                rustc cargo 
-              gcc
-              clang
-              zig
+            # Web
+            typescript
+            # Low level
+            #for rust
+            rustc
+            cargo
+            gcc
+            clang
+            zig
             # Scripting
-              python313
-              python311Packages.ipython
+            python313
+            python311Packages.ipython
 
-              lua
-              luajit
+            lua
+            luajit
             # JavaScript runtime and tools
             nodejs
             create-react-app
@@ -170,6 +171,7 @@
       # zsh-powerlevel10k
       zoxide
       # CLI:
+      imagemagick
       # TUI Browsers:
       # browsh
       # carbonyl
