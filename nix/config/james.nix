@@ -144,6 +144,8 @@
             marksman
             # CLI Accounting
             hledger
+
+            hplipWithPlugin
           ];
         };
         temp = {
